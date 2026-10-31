@@ -1,0 +1,14 @@
+This repository contains components under separate licenses.
+
+1. Native SFT derivatives under time_r1/src: Apache License 2.0, with upstream
+   attribution to Qwen-VL-Series-Finetune. See third_party_licenses/Qwen-VL-Series-Finetune/LICENSE.
+2. TimeLens-derived code under timelens: License Term of TimeLens and its original
+   third-party notices. This license includes academic-use and regional restrictions.
+   See third_party_licenses/TimeLens/LICENSE and third_party_licenses/TimeLens/NOTICE.
+3. New integration utilities under vtg, tools, evaluation and tests: Apache License 2.0.
+   A copy is provided at third_party_licenses/Time-R1/LICENSE.
+4. Retained historical TimeLens predictions remain subject to applicable upstream
+   model/data terms. External datasets and model weights have their own licenses.
+
+No repository-wide license change supersedes a component's original license.
+See docs/PROVENANCE.md and third_party_licenses/README.md for source and change details.

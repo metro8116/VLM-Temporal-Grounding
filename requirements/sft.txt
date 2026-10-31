@@ -1,0 +1,11 @@
+# Candidate Linux environment. Install the CUDA-specific torch/torchvision wheels first.
+# GPU execution has not been validated in this packaging session.
+transformers==4.57.1
+accelerate==1.10.1
+peft==0.17.1
+deepspeed==0.17.6
+qwen-vl-utils[decord]==0.0.14
+datasets==3.5.1
+opencv-python==4.11.0.86
+ujson==5.10.0
+tensorboard==2.20.0

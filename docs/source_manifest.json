@@ -1,0 +1,207 @@
+[
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/__init__.py",
+    "target": "time_r1/src/__init__.py",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/constants.py",
+    "target": "time_r1/src/constants.py",
+    "source_sha256": "248f71734c12e4ffac5de03742eeb114d4dd723c21056751d783ff2afebef246"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/model/__init__.py",
+    "target": "time_r1/src/model/__init__.py",
+    "source_sha256": "b79eefedd92eb357d687d36abde59c7f9ac3f71a77dcaba4c7a33f8323e03d97"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/model/load_model.py",
+    "target": "time_r1/src/model/load_model.py",
+    "source_sha256": "a05b12ba36ee25d9e228866e65497bd62a26589aa5ecae6de223f53165b70cd4"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/dataset/sft_dataset.py",
+    "target": "time_r1/src/dataset/sft_dataset.py",
+    "source_sha256": "532a3a55066f2824a2ae45d8b28ffd9d93266bb0fbbcc8995429a69eba10cd73"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/dataset/data_utils.py",
+    "target": "time_r1/src/dataset/data_utils.py",
+    "source_sha256": "e4c9d039a352ccf6a9990278a3d753b99396b00fa7ec346e0354201ab236cfbe"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/train/__init__.py",
+    "target": "time_r1/src/train/__init__.py",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/train/train_sft.py",
+    "target": "time_r1/src/train/train_sft.py",
+    "source_sha256": "9f12a95a22015d215cb3d4b4e06a3cc36e2a8adb02bf30c317a57b11646648ba"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/train/train_utils.py",
+    "target": "time_r1/src/train/train_utils.py",
+    "source_sha256": "e459c8d5797248c1e65cc3a2c4a3c543d64ad95e85e12d53592a4116d1cf0c4e"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/src/trainer/sft_trainer.py",
+    "target": "time_r1/src/trainer/sft_trainer.py",
+    "source_sha256": "1d3259868e6800f256e6b25bc78d628b9ec710f000f8b5976c013c828174760e"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/model_loader.py",
+    "target": "timelens/training/model_loader.py",
+    "source_sha256": "e8deb94b10e0ca69054146e42495b1fcf2e8e3c6d3d684a8cb33ba4ce230c861"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/params.py",
+    "target": "timelens/training/params.py",
+    "source_sha256": "6c9fdad5efd34888ad231af82aee7eebcf01bef91bf72154c2c9dfd222b37aed"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/__init__.py",
+    "target": "timelens/training/__init__.py",
+    "source_sha256": "870cf0df265f4654d4a1f05e385226de27ba5858972ac814078a23d8a6b343ac"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/data/collator.py",
+    "target": "timelens/training/data/collator.py",
+    "source_sha256": "712f9b765ebcdac0f1f6e83f24791b8a93f1bdfb951d51b5ebcbf54b832cae19"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/data/grounding.py",
+    "target": "timelens/training/data/grounding.py",
+    "source_sha256": "1a190c70d958dd955f5bc86f63e7debe2baf9a2cf1b80a6267e387ef61dd2a63"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/data/hybrid.py",
+    "target": "timelens/training/data/hybrid.py",
+    "source_sha256": "433a49d9d556e2df577d026b54456e935317d4452432694c558468075e5518ff"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/data/inference_collator.py",
+    "target": "timelens/training/data/inference_collator.py",
+    "source_sha256": "4f6c114b939e601d58683608bb85d6c3874852f88a0db38028d4066e69a7511e"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/data/preprocess.py",
+    "target": "timelens/training/data/preprocess.py",
+    "source_sha256": "812db16d8820f0e74a1063c2f79734387c80859d08c422b19c4463f06b660646"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/data/__init__.py",
+    "target": "timelens/training/data/__init__.py",
+    "source_sha256": "1c19d901bd3c4a8336c2d1e92ef54176931efeb55532201607c5cd57413ae97b"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/filter/infer_qwen3_vl_tvg_dataloader_filter_data.py",
+    "target": "timelens/training/filter/infer_qwen3_vl_tvg_dataloader_filter_data.py",
+    "source_sha256": "88ef179ba8a414056f2ecd166be164a6c89d252ba79cfad08bf505fadb336674"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/filter/__init__.py",
+    "target": "timelens/training/filter/__init__.py",
+    "source_sha256": "f4f7c635e16e945f8928158f06aea7c4935df413d6fdc9b5a48db7d9030cff9f"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/train/reward_funcs.py",
+    "target": "timelens/training/train/reward_funcs.py",
+    "source_sha256": "ec942a07eb3d86a436c9566bf1b09f85a328156db589c8fced7725af59f56cd6"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/train/train_grpo_timelens.py",
+    "target": "timelens/training/train/train_grpo_timelens.py",
+    "source_sha256": "88ceb6f6aea194598a7661d0564ebe5a9f9a95c5b4db09a5b80240fb6aba02e2"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/train/train_utils.py",
+    "target": "timelens/training/train/train_utils.py",
+    "source_sha256": "b4ef9b08f8e009d860a6a3975682db616b062ba06e05b9c45a10cbe886b2265e"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/train/__init__.py",
+    "target": "timelens/training/train/__init__.py",
+    "source_sha256": "e2df2c2c029c543e7e8babe9e49c2032e55027b521591270efc410d0e7f0a2be"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/trainer/grpo_trainer_qwenvl.py",
+    "target": "timelens/training/trainer/grpo_trainer_qwenvl.py",
+    "source_sha256": "58278137611fbcd0137594215d2691558508ea693072f5ca1f6f9f989efe2a80"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/trainer/__init__.py",
+    "target": "timelens/training/trainer/__init__.py",
+    "source_sha256": "f75032c1554e5bfa8c052d90d47e8290b3f3e4cfe0f68577398e9ebd234ab71f"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/utils/parser.py",
+    "target": "timelens/training/utils/parser.py",
+    "source_sha256": "7a41e3969d1c48f7ce092a6105bffaf25af4fbec7c4aa5b12b7c8f6d7d2e308e"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/training/utils/__init__.py",
+    "target": "timelens/training/utils/__init__.py",
+    "source_sha256": "38297cded9c00d3fa51b518f94f60d986222361b5a35ae0348fe3eaaf469bf51"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/timelens/utils.py",
+    "target": "timelens/timelens/utils.py",
+    "source_sha256": "111592a41a2d90915b6adf3a0799764deb0af7523d28a740460b82eb490063d8"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/timelens/__init__.py",
+    "target": "timelens/timelens/__init__.py",
+    "source_sha256": "6bdddaa815b3858b95df5df7448a8ba50335a48fb2ee924d05cda78605140de3"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/timelens/dataset/timelens_data.py",
+    "target": "timelens/timelens/dataset/timelens_data.py",
+    "source_sha256": "8de5bf7196f7ce6a8f5994d336df1d46a6e16d2993ab1bf37147accfe22ea9e5"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/timelens/dataset/__init__.py",
+    "target": "timelens/timelens/dataset/__init__.py",
+    "source_sha256": "704874971ebc9d6623c49ccb72bb305d0d53049370c8f57a524c22a76916699e"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/scripts/zero1.json",
+    "target": "timelens/configs/deepspeed/zero1.json",
+    "source_sha256": "4c0501541bd6dea299ecd001f07ef27495d9b3858a4b2dc15f6352925a9d5266"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/scripts/zero3.json",
+    "target": "timelens/configs/deepspeed/zero3.json",
+    "source_sha256": "bc77dc6b0fa6befb25389605ce7bb2e26b120ec7680f1ef9f925ad38a09f91d5"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/scripts/zero3.json",
+    "target": "time_r1/configs/deepspeed/zero3.json",
+    "source_sha256": "72ea85193151b96f6b2b737741c776fd1106643a7e070e91f1885e2d36d43aa4"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/LICENSE",
+    "target": "third_party_licenses/TimeLens/LICENSE",
+    "source_sha256": "90331344661021493602364d259c389bf6dd252b8458d7683a24d5b56c5f84e1"
+  },
+  {
+    "source": "TimeLens-train/TimeLens-train/NOTICE",
+    "target": "third_party_licenses/TimeLens/NOTICE",
+    "source_sha256": "14f515eb29f27fe2c3d77ed3bb33f900273035bb8117c88d262ae784dfecec8b"
+  },
+  {
+    "source": "time-r1-main/time-r1-main/LICENSE",
+    "target": "third_party_licenses/Time-R1/LICENSE",
+    "source_sha256": "46e17495049defc0707c72a148ef9ff51a2c84bceb12ae45a5c5a0a54f714b58"
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/train_abs.sh",
+    "source_sha256": "7f826a352e79a0ba2002069de65c34016a8dc34055a3bc8f0981532dd0d496c9",
+    "note": "Configuration referenced; old executable shell not distributed."
+  },
+  {
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/train_rel.sh",
+    "source_sha256": "bdcf6d6c1960fcde91818656db59c868a23597ffbf6db633df1dc10bdd197dc0",
+    "note": "Configuration referenced; old executable shell not distributed."
+  }
+]

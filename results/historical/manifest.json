@@ -1,0 +1,155 @@
+[
+  {
+    "model": "qwen3_base",
+    "dataset": "activitynet",
+    "file": "results/historical/timelens/qwen3_base__activitynet.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/Qwen3-VL-8B/Qwen3-VL-8B-Instruct_20260426_082410/activitynet-timelens.jsonl",
+    "source_sha256": "c519826131879f2129912f8ffbae115ec4c6ae8de73a54e4082e073446195a1a",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "qwen3_base",
+    "dataset": "charades",
+    "file": "results/historical/timelens/qwen3_base__charades.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/Qwen3-VL-8B/Qwen3-VL-8B-Instruct_20260426_082410/charades-timelens.jsonl",
+    "source_sha256": "e71630ba8e091acd2dfe0d8d581738f23c53fa11aca60bb04bae7ce9865a596d",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "qwen3_base",
+    "dataset": "qvhighlights",
+    "file": "results/historical/timelens/qwen3_base__qvhighlights.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/Qwen3-VL-8B/Qwen3-VL-8B-Instruct_20260426_082410/qvhighlights-timelens.jsonl",
+    "source_sha256": "f16c69091c614aec7e6f67a3e25f6ae3013d021cc44c6d5de8363e057e37bf66",
+    "queries": 1541,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "sft_start",
+    "dataset": "activitynet",
+    "file": "results/historical/timelens/sft_start__activitynet.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/TimeLens-8B-SFT/TimeLens-8B-sft-prebuilt_20260426_130321/activitynet-timelens.jsonl",
+    "source_sha256": "6d5b3574db7422e20df4c21bc5af5008a59a364f43b0258d7d1a4bb8e64a41d0",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "sft_start",
+    "dataset": "charades",
+    "file": "results/historical/timelens/sft_start__charades.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/TimeLens-8B-SFT/TimeLens-8B-sft-prebuilt_20260426_130321/charades-timelens.jsonl",
+    "source_sha256": "76c1e323aa4b5020bf3c8332c001c7cc86981799e6e9e0cab82f0dc88d3f0144",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "sft_start",
+    "dataset": "qvhighlights",
+    "file": "results/historical/timelens/sft_start__qvhighlights.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/TimeLens-8B-SFT/TimeLens-8B-sft-prebuilt_20260426_130321/qvhighlights-timelens.jsonl",
+    "source_sha256": "cb37e81c232c99bc94e5be12375bd023421cf8a9ca871e7c4a2c09de2e9c5bc4",
+    "queries": 1541,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "grpo_qlora",
+    "dataset": "activitynet",
+    "file": "results/historical/timelens/grpo_qlora__activitynet.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/TimeLens-8B-GRPO-QLoRA/qwen3vl-grpo-qlora-20260425-1709_MAXFRAMES-320_FPS-2_TOTALtokens-10240_MINtokens-64-merged-lora-merger_20260426_024044/activitynet-timelens.jsonl",
+    "source_sha256": "6604a83a81bbf2761e79d2e394b2529f66a3965a7a564d69b5c710453843c51c",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "grpo_qlora",
+    "dataset": "charades",
+    "file": "results/historical/timelens/grpo_qlora__charades.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/TimeLens-8B-GRPO-QLoRA/qwen3vl-grpo-qlora-20260425-1709_MAXFRAMES-320_FPS-2_TOTALtokens-10240_MINtokens-64-merged-lora-merger_20260426_024044/charades-timelens.jsonl",
+    "source_sha256": "dbd1cf6e33353c3ad1840f1ae77db3ee99421e03c4a5ddba357248e19296e551",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "grpo_qlora",
+    "dataset": "qvhighlights",
+    "file": "results/historical/timelens/grpo_qlora__qvhighlights.jsonl.gz",
+    "source": "2026-04-29_Timelens-grpo-qlora复现/eval_result/TimeLens-8B-GRPO-QLoRA/qwen3vl-grpo-qlora-20260425-1709_MAXFRAMES-320_FPS-2_TOTALtokens-10240_MINtokens-64-merged-lora-merger_20260426_024044/qvhighlights-timelens.jsonl",
+    "source_sha256": "0e6a4e44351c409c064114d6ff343cdbc9fcfdc3c9e427a463efcc8c1d37b495",
+    "queries": 1541,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "grpo_full",
+    "dataset": "activitynet",
+    "file": "results/historical/timelens/grpo_full__activitynet.jsonl.gz",
+    "source": "2026-05-13_Timelens-grpo-diou消融/result/TimeLens-8B-Full-GRPO/grpo-20260430-2008_MAXFRAMES-448_FPS-2_TOTALtokens-14336_MINtokens-64_20260501_020336/activitynet-timelens-2000.jsonl",
+    "source_sha256": "dd868bb33f085a74bbe5fd64a8994e28d4852aae202e11bd145506d7fdd0edb1",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "grpo_full",
+    "dataset": "charades",
+    "file": "results/historical/timelens/grpo_full__charades.jsonl.gz",
+    "source": "2026-05-13_Timelens-grpo-diou消融/result/TimeLens-8B-Full-GRPO/grpo-20260430-2008_MAXFRAMES-448_FPS-2_TOTALtokens-14336_MINtokens-64_20260501_020336/charades-timelens-2000.jsonl",
+    "source_sha256": "47c05f7949f74988c281a990e5549261e3de71c52f3a5a21409947afb2f5c983",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "grpo_full",
+    "dataset": "qvhighlights",
+    "file": "results/historical/timelens/grpo_full__qvhighlights.jsonl.gz",
+    "source": "2026-05-13_Timelens-grpo-diou消融/result/TimeLens-8B-Full-GRPO/grpo-20260430-2008_MAXFRAMES-448_FPS-2_TOTALtokens-14336_MINtokens-64_20260501_020336/qvhighlights-timelens.jsonl",
+    "source_sha256": "76c259e57a86c0e9f0dcfdc5adc5e6e9830ae3ed20ff02c79fb8e2789f87cee3",
+    "queries": 1541,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "official_local",
+    "dataset": "activitynet",
+    "file": "results/historical/timelens/official_local__activitynet.jsonl.gz",
+    "source": "2026-05-13_Timelens-grpo-diou消融/result/TimeLens-8B/TimeLens-8B_20260501_140345/activitynet-timelens-2000.jsonl",
+    "source_sha256": "3bdddba1eac8e95f030bb9046d5b03849796f154cc9dec8dcfb495a9af299b98",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "official_local",
+    "dataset": "charades",
+    "file": "results/historical/timelens/official_local__charades.jsonl.gz",
+    "source": "2026-05-13_Timelens-grpo-diou消融/result/TimeLens-8B/TimeLens-8B_20260501_140345/charades-timelens-2000.jsonl",
+    "source_sha256": "54b06403889a61df0ef74d3820ec140ff9e8c4bdb1c329ae82b3f10853c46e7b",
+    "queries": 2000,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "official_local",
+    "dataset": "qvhighlights",
+    "file": "results/historical/timelens/official_local__qvhighlights.jsonl.gz",
+    "source": "2026-05-13_Timelens-grpo-diou消融/result/TimeLens-8B/TimeLens-8B_20260501_140345/qvhighlights-timelens.jsonl",
+    "source_sha256": "52ffbe4753530e84fef08b44d9c831c233f766d36197fa56da07ac68cb6eb3a3",
+    "queries": 1541,
+    "protocol": "A/C: common 2000 queries, QV: full 1541. Historical successful-record denominator; omitted failures not recoverable."
+  },
+  {
+    "model": "native_abs_record",
+    "dataset": "charades_sta",
+    "file": "results/historical/time_r1/native_abs_record.json.gz",
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/eval_results_abs_ckp100.json",
+    "source_sha256": "75de5e778d5225b9662824620acf0101bfe4ccaebd31fd3f02e2c36bc579e6a1",
+    "queries": 1000,
+    "protocol": "Native backup record; checkpoint identity of abs record ambiguous (filename/script load 100 versus report heading 785). Not a newly reproduced result."
+  },
+  {
+    "model": "native_rel_low_lr_600",
+    "dataset": "charades_sta",
+    "file": "results/historical/time_r1/native_rel_low_lr_600.json.gz",
+    "source": "2026-04-15_框架转换+相对百分比SFT-LoRA/Time-R1(SFT2)/相对百分比验证结果/eval_results_rel_checkpoint-600_1k.json",
+    "source_sha256": "d391573d7dea1c02cabc0f739035b2fc465b2f304d877bfbbb3a49255708d040",
+    "queries": 1000,
+    "protocol": "Native backup record; checkpoint identity of abs record ambiguous (filename/script load 100 versus report heading 785). Not a newly reproduced result."
+  }
+]

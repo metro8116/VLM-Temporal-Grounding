@@ -1,0 +1,283 @@
+"""
+GRPO training script for TimeLens-8B.
+Adapted from Qwen2-VL-Finetune/VideoMind train_grpo_videomind.py.
+"""
+import ast
+import os
+import pathlib
+import sys
+
+WORKSPACE_ROOT = pathlib.Path(__file__).resolve().parents[2]
+if str(WORKSPACE_ROOT) not in sys.path:
+    sys.path.insert(0, str(WORKSPACE_ROOT))
+
+import torch
+from peft import LoraConfig
+from transformers import BitsAndBytesConfig, HfArgumentParser
+
+from training.params import DataArguments, ModelArguments, GRPOArguments
+from training.data import HybridDataset
+from training.trainer import QwenvlGRPOTrainer
+from training.train.train_utils import (
+    get_peft_state_maybe_zero_3,
+    get_peft_state_non_lora_maybe_zero_3,
+    safe_save_model_for_hf_trainer,
+    print_trainable_parameters,
+)
+from training.train.reward_funcs import load_reward_funcs
+from training.model_loader import get_model_class, get_processor_class, get_config_class
+
+local_rank = None
+
+
+def rank0_print(*args):
+    if local_rank == 0 or local_rank == "0" or local_rank is None:
+        print(*args)
+
+
+def find_target_linear_names(model, num_lora_modules=-1, lora_namespan_exclude=None, verbose=True):
+    lora_namespan_exclude = lora_namespan_exclude or []
+    linear_cls = torch.nn.modules.Linear
+    embedding_cls = torch.nn.modules.Embedding
+    lora_module_names = []
+
+    for name, module in model.named_modules():
+        if any(ex_keyword in name for ex_keyword in lora_namespan_exclude):
+            continue
+        if isinstance(module, (linear_cls, embedding_cls)):
+            lora_module_names.append(name)
+
+    if num_lora_modules > 0:
+        lora_module_names = lora_module_names[-num_lora_modules:]
+    if verbose:
+        rank0_print(f"Found {len(lora_module_names)} lora modules: {lora_module_names}")
+    return lora_module_names
+
+
+def set_requires_grad(parameters, requires_grad):
+    for p in parameters:
+        p.requires_grad = requires_grad
+
+
+def configure_vision_tower(model, training_args, compute_dtype, device):
+    vision = getattr(model, "visual", None)
+    if vision is None:
+        vision = getattr(getattr(model, "model", None), "visual", None)
+    if vision is None:
+        raise ValueError("Cannot locate Qwen visual tower; refusing an incorrect freeze policy")
+    if training_args.bits == 16:
+        vision.to(dtype=compute_dtype, device=device)
+    set_requires_grad(vision.parameters(), not training_args.freeze_vision_tower)
+    for name, parameter in vision.named_parameters():
+        if "merger" in name:
+            parameter.requires_grad = not training_args.freeze_merger
+
+
+def configure_llm(model, training_args):
+    set_requires_grad(model.parameters(), not training_args.freeze_llm)
+
+
+def train():
+    global local_rank
+
+    parser = HfArgumentParser((ModelArguments, DataArguments, GRPOArguments))
+    model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+
+    if training_args.lora_enable and not training_args.freeze_llm:
+        raise ValueError("If `lora_enable` is True, `freeze_llm` must also be True.")
+
+    if not training_args.lora_enable:
+        assert not training_args.vision_lora, (
+            "Error: training_args.lora_enable is not enabled, but training_args.vision_lora is enabled."
+        )
+
+    if training_args.vision_lora and not training_args.freeze_vision_tower:
+        raise ValueError("If `vision_lora` is True, `freeze_vision_tower` must also be True.")
+
+    if training_args.lora_namespan_exclude is not None:
+        training_args.lora_namespan_exclude = ast.literal_eval(training_args.lora_namespan_exclude)
+    else:
+        training_args.lora_namespan_exclude = []
+
+    if not training_args.vision_lora:
+        training_args.lora_namespan_exclude += ["visual"]
+
+    local_rank = training_args.local_rank
+    compute_dtype = (
+        torch.float16 if training_args.fp16
+        else (torch.bfloat16 if training_args.bf16 else torch.float32)
+    )
+
+    bnb_model_from_pretrained_args = {}
+    if training_args.bits in [4, 8]:
+        bnb_model_from_pretrained_args.update(
+            dict(
+                device_map={"": training_args.device},
+                quantization_config=BitsAndBytesConfig(
+                    load_in_4bit=training_args.bits == 4,
+                    load_in_8bit=training_args.bits == 8,
+                    llm_int8_skip_modules=["visual"],
+                    llm_int8_threshold=6.0,
+                    llm_int8_has_fp16_weight=False,
+                    bnb_4bit_compute_dtype=compute_dtype,
+                    bnb_4bit_use_double_quant=training_args.double_quant,
+                    bnb_4bit_quant_type=training_args.quant_type,
+                ),
+            )
+        )
+
+    model_cls = get_model_class(model_args.model_name_or_path)
+    processor_source = model_args.processor_path or model_args.model_name_or_path
+    processor_cls = get_processor_class(processor_source)
+    config_cls = get_config_class(model_args.model_name_or_path)
+
+    config = config_cls.from_pretrained(
+        model_args.model_name_or_path, trust_remote_code=True
+    )
+    if config.model_type != "qwen3_vl":
+        raise ValueError("This TimeLens comparison requires a Qwen3-VL-8B SFT initialization")
+
+    model = model_cls.from_pretrained(
+        model_args.model_name_or_path,
+        config=config,
+        torch_dtype=compute_dtype,
+        attn_implementation="flash_attention_2"
+        if not training_args.disable_flash_attn2
+        else "sdpa",
+        trust_remote_code=True,
+        **bnb_model_from_pretrained_args,
+    )
+
+    model.config.use_cache = False
+    model_to_configure = model
+    configure_llm(model_to_configure, training_args)
+    configure_vision_tower(
+        model_to_configure, training_args, compute_dtype, training_args.device
+    )
+
+    if training_args.bits in [4, 8]:
+        model.config.torch_dtype = (
+            torch.float32 if training_args.fp16
+            else (torch.bfloat16 if training_args.bf16 else torch.float32)
+        )
+        from peft import prepare_model_for_kbit_training
+
+        model = prepare_model_for_kbit_training(
+            model,
+            use_gradient_checkpointing=training_args.gradient_checkpointing,
+            gradient_checkpointing_kwargs={"use_reentrant": True},
+        )
+
+    if training_args.gradient_checkpointing:
+        model.enable_input_require_grads()
+        training_args.gradient_checkpointing_kwargs = {"use_reentrant": True}
+
+    peft_config = None
+
+    if training_args.lora_enable:
+        lora_namespan_exclude = training_args.lora_namespan_exclude
+        peft_config = LoraConfig(
+            r=training_args.lora_rank,
+            lora_alpha=training_args.lora_alpha,
+            target_modules=find_target_linear_names(
+                model,
+                lora_namespan_exclude=lora_namespan_exclude,
+                num_lora_modules=training_args.num_lora_modules,
+            ),
+            lora_dropout=training_args.lora_dropout,
+            bias=training_args.lora_bias,
+        )
+        if training_args.bits == 16:
+            if training_args.bf16:
+                model.to(torch.bfloat16)
+            if training_args.fp16:
+                model.to(torch.float16)
+
+    # Actual trainable parameters are recorded after the trainer applies PEFT.
+
+    # `qwen_vl_utils` already resizes frames in the data pipeline, so keep
+    # `do_resize=False` at the processor call sites instead of persisting it
+    # into the saved processor defaults.
+    processor = processor_cls.from_pretrained(
+        processor_source,
+        padding_side="left",
+        trust_remote_code=True,
+    )
+    processor.pad_token_id = processor.tokenizer.pad_token_id
+    processor.bos_token_id = processor.tokenizer.bos_token_id
+    processor.eos_token_id = processor.tokenizer.eos_token_id
+    processor.pad_token = processor.tokenizer.pad_token
+
+    if training_args.bits in [4, 8]:
+        from peft.tuners.lora import LoraLayer
+
+        for name, module in model.named_modules():
+            if isinstance(module, LoraLayer):
+                if training_args.bf16:
+                    module = module.to(torch.bfloat16)
+            if "norm" in name:
+                module = module.to(torch.float32)
+
+            if "lm_head" in name or "embed_token" in name:
+                if hasattr(module, "weight"):
+                    if training_args.bf16 and module.weight.dtype == torch.float32:
+                        module = module.to(torch.bfloat16)
+
+    reward_funcs = load_reward_funcs(training_args.reward_funcs)
+
+    trainer = QwenvlGRPOTrainer(
+        model=model,
+        processing_class=processor,
+        train_dataset=HybridDataset(
+            processor, model.config, model_args, data_args, training_args,
+            training_mode="grpo",
+        ),
+        reward_funcs=reward_funcs,
+        args=training_args,
+        peft_config=peft_config,
+    )
+
+    actual_model = trainer.accelerator.unwrap_model(trainer.model)
+    trainable = {name: parameter for name, parameter in actual_model.named_parameters() if parameter.requires_grad}
+    if not trainable:
+        raise ValueError("No trainable parameters after constructing the trainer")
+    if not training_args.freeze_merger and not any("merger" in name for name in trainable):
+        raise ValueError("Merger was configured trainable but remains frozen")
+    if training_args.freeze_vision_tower and any("visual" in name and "merger" not in name for name in trainable):
+        raise ValueError("Visual encoder unexpectedly trainable")
+    if training_args.should_save:
+        import json
+        pathlib.Path(training_args.output_dir).mkdir(parents=True, exist_ok=True)
+        records = [{"name": name, "shape": list(parameter.shape), "numel": parameter.numel()}
+                   for name, parameter in trainable.items()]
+        (pathlib.Path(training_args.output_dir) / "trainable_parameters.json").write_text(
+            json.dumps(records, indent=2), encoding="utf-8")
+        # Save the actual selected training queries, including the duration/IoU sampling outcome.
+        selected = [anno for dataset in trainer.train_dataset.datasets for anno in dataset.annos]
+        (pathlib.Path(training_args.output_dir) / "selected_training_annotations.json").write_text(
+            json.dumps(selected, ensure_ascii=False, indent=2), encoding="utf-8")
+    if training_args.resume_checkpoint and training_args.lora_enable:
+        from vtg.checkpoints import load_extra_trainables
+        load_extra_trainables(actual_model.get_base_model(), training_args.resume_checkpoint,
+                              required=not training_args.freeze_merger)
+    trainer.train(resume_from_checkpoint=training_args.resume_checkpoint)
+    trainer.save_state()
+    trainer.model.config.use_cache = True
+    if training_args.lora_enable:
+        peft_model = trainer.accelerator.unwrap_model(trainer.model)
+        # ZeRO gathers must be called by every rank, not only the rank writing files.
+        state = get_peft_state_maybe_zero_3(peft_model.named_parameters(), training_args.lora_bias)
+        extra = get_peft_state_non_lora_maybe_zero_3(peft_model.named_parameters(), require_grad_only=True)
+        if training_args.should_save:
+            peft_model.save_pretrained(training_args.output_dir, state_dict=state)
+            processor.save_pretrained(training_args.output_dir)
+            torch.save(extra, os.path.join(training_args.output_dir, "non_lora_trainables.bin"))
+    else:
+        safe_save_model_for_hf_trainer(trainer, output_dir=training_args.output_dir)
+        if training_args.should_save:
+            processor.save_pretrained(training_args.output_dir)
+    # Let Trainer's save_total_limit handle rotation; never delete the latest checkpoint here.
+
+
+if __name__ == "__main__":
+    train()

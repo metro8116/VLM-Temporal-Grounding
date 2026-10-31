@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-31",
+  "cpu_tests_passed": 25,
+  "python_files_syntax_checked": 58,
+  "historical_prediction_files_verified": 17,
+  "original_source_hashes_verified": 41,
+  "cli_help_and_grpo_dry_runs": "passed",
+  "gpu_training_validated": false,
+  "gpu_inference_validated": false,
+  "model_weights_included": false,
+  "training_videos_included": false,
+  "github_upload_performed": false,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "limitations": [
+    "Model weights and complete nonempty media must be restored externally.",
+    "Candidate GPU environments have not been runtime validated.",
+    "Native SFT absolute record recomputes to 52.9521% and has unresolved checkpoint identification."
+  ],
+  "readme_cli_commands_parsed": 60,
+  "readme_training_config_checks": 14,
+  "bilingual_readme_command_blocks_identical": 27,
+  "bash_blocks_syntax_checked": 27
+}
